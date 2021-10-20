@@ -37,13 +37,13 @@ public class IndexesServlet extends HttpServlet {
   private final DatastoreService datastore;
 
   public IndexesServlet() {
-    datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore = DatastoreServiceFactory.getAsyncDatastoreService();
   }
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
-    // [START exploding_index_example_1]
+    /*// [START exploding_index_example_1]
     Query q =
         new Query("Widget")
             .setFilter(
@@ -51,8 +51,9 @@ public class IndexesServlet extends HttpServlet {
                     new FilterPredicate("x", FilterOperator.EQUAL, 1),
                     new FilterPredicate("y", FilterOperator.EQUAL, 2)))
             .addSort("date", Query.SortDirection.ASCENDING);
-    // [END exploding_index_example_1]
-    List<Entity> results = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+    // [END exploding_index_example_1]*/
+    //List<Entity> results = datastore.prepare(q).asList(FetchOptions.Builder.withDefaults());
+    List<Entity> results = datastore.getIndexes();
 
     PrintWriter out = resp.getWriter();
     out.printf("Got %d widgets.\n", results.size());
